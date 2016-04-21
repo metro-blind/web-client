@@ -21,9 +21,16 @@ $("#search_it").click(function(){
     $.ajax({
         url: "http://localhost:8080/itinerary/" + start + "/" + end
     }).then(function(data) {
-        $.each(data, function(i, item) {
-            $("#itinerary").append(data[i].text);
-        });
+        console.log(data.isEmptyObject);
+        $("#itinerary").empty();
+        if (jQuery.isEmptyObject(data)) {
+            $("#itinerary").append("<h2>Ce trajet n'est pas disponible</h2>");
+        }
+        else {
+            $.each(data, function(i, item) {
+                $("#itinerary").append(data[i].text);
+            });
+        }
     });
 });
 
